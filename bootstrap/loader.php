@@ -7,7 +7,7 @@ $loader = new Loader();
 $loader->registerDirs(
 	array (
 		$config->application->controllerDir,
-		$config->application->modelsDir	
+		$config->application->modelsDir,	
 	)
 );
 

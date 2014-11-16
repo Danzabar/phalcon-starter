@@ -9,7 +9,7 @@ class HomeController extends BaseController
 	
 	public function showAction()
 	{
-		return $this->output('welcome');
+		return $this->renderView('welcome');
 	}
 
 } // END class HomeController extends BaseController

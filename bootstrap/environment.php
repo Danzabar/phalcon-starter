@@ -1,6 +1,7 @@
 <?php require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Phalcon\DI\FactoryDefault,
+	Phalcon\DI,
 	Phalcon\Mvc\View\Simple as View,
 	Phalcon\Mvc\Dispatcher,
 	Phalcon\Mvc\Url as UrlResolver,
@@ -8,7 +9,6 @@ use Phalcon\DI\FactoryDefault,
 	Phalcon\Mvc\View\Engine\Volt as VoltEngine,
 	Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter,
 	Phalcon\Session\Adapter\Files as SessionAdapter,
-	Phalcon\Mvc\Application,
 	Symfony\Component\Debug\Debug;
 
 
@@ -38,6 +38,7 @@ if($config->application->debug == true)
  *
  */
 $container = new FactoryDefault;
+DI::reset();
 
 /**
  * Load the routes into the container
@@ -131,4 +132,6 @@ $container->set('dispatcher', function()
 	return $dispatcher;
 });
 
-return new Application($container);
+DI::setDefault($container);
+
+return $container;

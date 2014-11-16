@@ -15,11 +15,11 @@ class BaseController extends Controller
 	 * @return String
 	 * @author Dan Cox
 	 */
-	public function output( $view, Array $params = Array() )
+	public function renderView( $view, Array $params = Array() )
 	{
-		echo $this->view->render($view, $params);
+		$content = $this->view->render($view, $params);
 
-		exit;
+		$this->response->setContent($content);
 	}
 	
 } // END class BaseController extends Controller
