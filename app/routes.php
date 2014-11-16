@@ -8,7 +8,7 @@ $router = new Router(false);
  *
  *
  */
-$router->addGet('/', 'HomeController::showWelcome');
+$router->addGet('/', 'Home::show');
 
 
 return $router;

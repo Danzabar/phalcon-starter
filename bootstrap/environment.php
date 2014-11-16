@@ -1,7 +1,7 @@
 <?php require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Phalcon\DI\FactoryDefault,
-	Phalcon\Mvc\View,
+	Phalcon\Mvc\View\Simple as View,
 	Phalcon\Mvc\Dispatcher,
 	Phalcon\Mvc\Url as UrlResolver,
 	Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter,
@@ -18,6 +18,11 @@ use Phalcon\DI\FactoryDefault,
  */
 $config = require_once __DIR__ . '/setup.php';
 
+/**
+ * Class loader
+ *
+ */
+require_once __DIR__ . '/loader.php';
 
 /**
  * Debugger
