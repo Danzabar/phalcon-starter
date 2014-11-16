@@ -9,11 +9,11 @@ php:
 matrix:
     allow_failures:
         - php: hhvm
+    install:
+        - composer --prefer-source install
     before_script:
         - git clone -q https://github.com/phalcon/cphalcon.git
         - (cd cphalcon/build; sudo ./install && phpenv config-add ../../tests/phalcon.ini)
-        - travis_retry composer self-update
-        - travis_retry composer install --no-interaction --prefer-source --dev
     script:
         - mkdir -p build/logs
         - phpunit --coverage-clover build/logs/clover.xml
