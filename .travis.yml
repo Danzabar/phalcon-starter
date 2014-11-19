@@ -11,6 +11,8 @@ matrix:
         - php: hhvm
 
 before_script:
+    - sudo apt-get update
+    - sudo apt-get install php5-dev
     - git clone -q https://github.com/phalcon/cphalcon.git
     - (cd cphalcon/build; sudo ./travis-install && phpenv config-add ../../travis.ini)
     - travis_retry composer self-update
