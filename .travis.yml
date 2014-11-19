@@ -4,22 +4,17 @@ php:
    - 5.4
    - 5.5
    - 5.6
-   - hhvm
 
-matrix:
-    allow_failures:
-        - php: hhvm
+before_install:
+    - install.sh
 
-before_script:
-    - sudo apt-get update
-    - sudo apt-get install php5-dev
-    - git clone -q https://github.com/phalcon/cphalcon.git
-    - (cd cphalcon/build; sudo ./travis-install && phpenv config-add ../../travis.ini)
+install:
     - travis_retry composer self-update
     - travis_retry composer install --no-interaction --prefer-source --dev
 
 script:
     - mkdir -p build/logs
     - phpunit --coverage-clover build/logs/clover.xml
+
 after_script:
     - php vendor/bin/coveralls -v
