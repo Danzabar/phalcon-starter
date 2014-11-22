@@ -10,6 +10,7 @@ before_install:
     - cd cphalcon/ext; export CFLAGS="-g3 -O1 -fno-delete-null-pointer-checks -Wall"; phpize && ./configure --enable-phalcon && make -j4 && sudo make install && phpenv config-add ../unit-tests/ci/phalcon.ini
 
 install:
+    - cd ../../
     - travis_retry composer self-update
     - travis_retry composer install --no-interaction --prefer-source --dev
 
