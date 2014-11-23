@@ -9,6 +9,7 @@ $router = new Router(false);
  *
  */
 $router->addGet('/', 'Home::show');
+$router->addGet('/response', 'Home::response');
 
 
 return $router;

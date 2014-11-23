@@ -1,8 +1,6 @@
 <?php
 
 use Phalcon\Di;
-use \Phalcon\Test\UnitTestCase as PhalconTestCase;
-use Phalcon\Mvc\Application;
 
 
 /**
@@ -12,7 +10,7 @@ use Phalcon\Mvc\Application;
  * @subpackage Tests
  * @author Dan Cox
  */
-class UnitTest extends PhalconTestCase
+class UnitTest extends \PHPUnit_Framework_TestCase
 {
 
 	/**
@@ -30,26 +28,21 @@ class UnitTest extends PhalconTestCase
 	protected $_config;
 
 	/**
-	 * Loaded Boolean
+	 * The depedancy object
 	 *
-	 * @var Boolean
+	 * @var object
 	 */
-	private $_loaded = false;
-
-
+	protected $di;
+	
 	/**
 	 * Set up test variables
 	 *
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function setUp(Phalcon\DiInterface $di = NULL, Phalcon\Config $config = NULL)
+	public function setUp()
 	{
-		$di = DI::getDefault();
-
-		parent::setUp($di);
-
-		$this->_loaded = true;
+		$this->di = DI::getDefault();
 	}
 
 	/**
@@ -64,18 +57,27 @@ class UnitTest extends PhalconTestCase
 	}
 
 	/**
-	 * Destruct function is called when a test finishes.
+	 * Assert that the response code equals the passed int
 	 *
-	 * @return void
+	 * @return Assert
 	 * @author Dan Cox
 	 */
-	public function __destruct()
+	public function assertResponseCode($code)
 	{
-		#if(!$this->_loaded)
-		#{
-		#	throw new \PHPUnit_Framework_IncompleteTestError("Please run parent::setup");
-		#}
+		$headers = $this->di->getResponse()->getHeaders();
+
+		$this->assertEquals($code, trim($headers->get('Status')));
 	}
 
+	/**
+	 * Returns the Di object
+	 *
+	 * @return object
+	 * @author Dan Cox
+	 */
+	public function getDi()
+	{
+		return $this->di;
+	}
 
 } // END class UnitTest extends PhalconTestCase
