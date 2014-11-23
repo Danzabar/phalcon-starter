@@ -1,0 +1,81 @@
+#!/usr/bin/env php
+<?php
+
+use Phalcon\DI\FactoryDefault\CLI,
+    Phalcon\CLI\Console,
+	Phalcon\Loader;
+	
+/**
+ * 
+ * Create a new DI for the console
+ *
+ */
+$di = new CLI;
+
+
+/**
+ * Register the loader for the commands 
+ *
+ */
+$loader = new Loader;
+$loader->registerDirs(
+	array(
+		__DIR__ . '/app/commands'
+	)
+);
+$loader->register();
+
+
+/**
+ *  Add the Cli config file.
+ *
+ */
+$config = require_once __DIR__ . '/app/config/cli.php';
+$di->set('config', $config);
+
+/**
+ * Load the web app DI, so we have access to DB and all website functionality.
+ *
+ */
+$webapp = require_once __DIR__ . '/bootstrap/environment.php';
+$di->set('application', $webapp);
+
+/**
+ *  The Console Application
+ *
+ */
+$console = new Console;
+$console->setDI($di);
+
+$di->setShared('console', $console);
+
+
+/**
+ * Arguments - 
+ * We are going to use a similar approach as symfony.. ie task:action params
+ * 
+ */
+try {
+
+	unset($argv[0]);
+	
+	$commands = explode(':', $argv[1]);
+
+	unset($argv[1]);
+
+	/**
+	 * Now we have task:action params
+	 *
+	 */
+	$arguments['task'] = $commands[0];
+	$arguments['action'] = (isset($commands[1]) ? $commands[1] : 'main');
+	$arguments['params'] = $argv;
+
+	$console->handle($arguments);
+
+} catch(\Exception $e) {
+	echo $e->getMessage()."\n";
+	exit(255);
+}
+
+?>
