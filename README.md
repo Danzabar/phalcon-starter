@@ -1,6 +1,8 @@
 Phalcon starter skeleton
 ========================
 
+[![Build Status](https://travis-ci.org/Danzabar/phalcon-starter.svg?branch=master)](https://travis-ci.org/Danzabar/phalcon-starter)
+
 A Skeleton project that has an already working test suite with travis setup and Composer integration.
 
 ## How to install
