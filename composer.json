@@ -10,7 +10,8 @@
 		}
 	],
 	"require": {
-		"symfony/debug": "3.0.*@dev"
+		"symfony/debug": "3.0.*@dev",
+		"danzabar/phalcon-cli": "dev-master"
 	},
 	"require-dev": {
 		"satooshi/php-coveralls": "dev-master",

@@ -2,7 +2,7 @@
 <?php
 
 use Phalcon\DI\FactoryDefault\CLI,
-    Phalcon\CLI\Console,
+	Danzabar\CLI\Application,
 	Phalcon\Loader;
 	
 /**
@@ -40,39 +40,14 @@ $di->set('config', $config);
 $webapp = require_once __DIR__ . '/bootstrap/environment.php';
 $di->set('application', $webapp);
 
-/**
- *  The Console Application
- *
- */
-$console = new Console;
-$console->setDI($di);
 
-$di->setShared('console', $console);
+$app = new Application;
+$app->setDI($di);
 
-
-/**
- * Arguments - 
- * We are going to use a similar approach as symfony.. ie task:action params
- * 
- */
 try {
-
-	unset($argv[0]);
 	
-	$commands = explode(':', $argv[1]);
-
-	unset($argv[1]);
-
-	/**
-	 * Now we have task:action params
-	 *
-	 */
-	$arguments['task'] = $commands[0];
-	$arguments['action'] = (isset($commands[1]) ? $commands[1] : 'main');
-	$arguments['params'] = $argv;
-
-	$console->handle($arguments);
-
+	$app->start($argv);
+		
 } catch(\Exception $e) {
 	echo $e->getMessage()."\n";
 	exit(255);

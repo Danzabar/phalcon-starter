@@ -16,5 +16,10 @@ $application = new Application($container);
 // Use explicit views
 $application->useImplicitView(false);
 
+// Load modules
+$modules = require_once dirname(__DIR__) . '/app/config/modules.php';
+
+$application->registerModules($modules);
+
 
 return $application;
