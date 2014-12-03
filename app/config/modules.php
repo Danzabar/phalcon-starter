@@ -1,7 +1,7 @@
 <?php
 
 // The vendor directory
-define('VENDOR',		dirname(__DIR__) . '/vendor/');
+define('VENDOR',		dirname(dirname(__DIR__)) . '/vendor/');
 
 /**
  * Modules,
