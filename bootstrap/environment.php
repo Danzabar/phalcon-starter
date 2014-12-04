@@ -41,12 +41,43 @@ $container = new FactoryDefault;
 DI::reset();
 
 /**
+ * Sort any stated modules
+ *
+ */
+$modules = require_once dirname(__DIR__) . '/app/config/modules.php';
+$phalconModule = Array();
+$routeGroups = Array();
+
+foreach($modules as $name => $module)
+{
+	$phalconModule[$name] = Array('className' => $module['className'], 'path' => $module['path'] . 'Module.php'); 
+	
+	if($module['use_routes'] && file_exists($module['path'] . '/Config/Routes.php'))
+	{
+		$routeGroups[] = require_once($module['path'] . '/Config/Routes.php');
+	}
+}
+
+
+$container->set('modules', function() use($phalconModule) 
+{
+	return $phalconModule;
+});
+
+/**
  * Load the routes into the container
  *
  */
-$container->set('router', function()
+$container->set('router', function() use ($routeGroups)
 {
-	return require_once dirname(__DIR__) . '/app/routes.php';
+	$routes = require_once dirname(__DIR__) . '/app/routes.php';
+
+	foreach($routeGroups as $group)
+	{
+		$routes->mount($routeGroups);
+	}
+
+	return $routes;
 }, true);
 
 /**

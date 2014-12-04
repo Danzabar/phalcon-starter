@@ -16,10 +16,12 @@ $application = new Application($container);
 // Use explicit views
 $application->useImplicitView(false);
 
-// Load modules
-$modules = require_once dirname(__DIR__) . '/app/config/modules.php';
+/** 
+ * Register the modules
+ *
+ */
+$mods = $container->get('modules');
 
-$application->registerModules($modules);
-
+$application->registerModules($mods);
 
 return $application;
