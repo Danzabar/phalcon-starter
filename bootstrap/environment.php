@@ -74,7 +74,7 @@ $container->set('router', function() use ($routeGroups)
 
 	foreach($routeGroups as $group)
 	{
-		$routes->mount($routeGroups);
+		$routes->mount($groups);
 	}
 
 	return $routes;
