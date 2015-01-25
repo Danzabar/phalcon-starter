@@ -7,7 +7,9 @@
  */
 $config = Array(
 
-	'test_config'			=> true	
+	'commands'	=> Array(
+		new TestTask
+	)
 );
 
 

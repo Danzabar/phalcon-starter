@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Phalcon\DI\FactoryDefault\CLI,
+use Phalcon\DI,
 	Danzabar\CLI\Application,
 	Phalcon\Loader;
 	
@@ -10,8 +10,14 @@ use Phalcon\DI\FactoryDefault\CLI,
  * Create a new DI for the console
  *
  */
-$di = new CLI;
+$di = new DI;
 
+/**
+ * Load the web app DI, so we have access to DB and all website functionality.
+ *
+ */
+$webapp = require_once __DIR__ . '/bootstrap/environment.php';
+$di->set('application', $webapp);
 
 /**
  * Register the loader for the commands 
@@ -25,7 +31,6 @@ $loader->registerDirs(
 );
 $loader->register();
 
-
 /**
  *  Add the Cli config file.
  *
@@ -33,24 +38,19 @@ $loader->register();
 $config = require_once __DIR__ . '/app/config/cli.php';
 $di->set('config', $config);
 
-/**
- * Load the web app DI, so we have access to DB and all website functionality.
- *
- */
-$webapp = require_once __DIR__ . '/bootstrap/environment.php';
-$di->set('application', $webapp);
+$app = new Application($di);
 
-
-$app = new Application;
-$app->setDI($di);
+foreach($config['commands'] as $command)
+{
+	$app->add($command);
+}
 
 try {
 	
 	$app->start($argv);
 		
 } catch(\Exception $e) {
+
 	echo $e->getMessage()."\n";
 	exit(255);
 }
-
-?>

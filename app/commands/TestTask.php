@@ -1,6 +1,6 @@
 <?php
 
-use Danzabar\CLI;
+use Danzabar\CLI\Tasks\Task;
 
 /**
  * A Test Task
@@ -9,7 +9,7 @@ use Danzabar\CLI;
  * @subpackage CLI
  * @author Dan Cox
  */
-class TestTask extends CLI\Command
+class TestTask extends Task
 {
 
 	/**
@@ -17,7 +17,7 @@ class TestTask extends CLI\Command
 	 *
 	 * @var string
 	 */
-	protected $name = 'Test';
+	protected $name = 'test';
 
 	/**
 	 * The description of the task
@@ -32,7 +32,7 @@ class TestTask extends CLI\Command
 	 * @return void
 	 * @author Dan Cox
 	 */
-	public function mainAction()
+	public function main()
 	{
 		$this->output->writeln('This is the main action');
 	}
