@@ -10,7 +10,7 @@
 		}
 	],
 	"require": {
-		"symfony/debug": "3.0.*@dev",
+		"symfony/debug": "2.7.*@dev",
 		"danzabar/phalcon-cli": "dev-master"
 	},
 	"require-dev": {

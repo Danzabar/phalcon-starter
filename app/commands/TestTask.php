@@ -29,6 +29,7 @@ class TestTask extends Task
 	/**
 	 * The main action
 	 *
+	 * @Action
 	 * @return void
 	 * @author Dan Cox
 	 */
