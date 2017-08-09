@@ -21,8 +21,4 @@ Modules can be added in the `app/config/modules.php` file, I have included a con
 
 ## CLI
 
-I have a seperate package [Danzabar\Phalcon-CLI](https://github.com/Danzabar/phalcon-cli) that improves the usability of the CLI. To run the CLI go to the root and run `php cli Task:action params`. Theres more Documentation about the features of the CLI package on its own repo. 
-
-## Vhost
-
-When setting up the vhost for this project, point it at the public folder, like `/vhost/public/` this saves the need for an index file on the root of the project and 2 htaccess files. 
+I have a seperate package [Danzabar\Phalcon-CLI](https://github.com/Danzabar/phalcon-cli) that improves the usability of the CLI. To run the CLI go to the root and run `php cli Task:action params`. Theres more Documentation about the features of the CLI package on its own repo.
